@@ -100,7 +100,7 @@ while true
 	case "$keypress" in
 	 [j] ) down;;
 	 [k] ) up;;
-	 [q] ) recoverCurrentTtySettings&&repaint&& exit;;
+	 [q] ) recoverCurrentTtySettings && repaint && rm keypress && exit;;
 	 * )  break ;;
 	esac
 done
