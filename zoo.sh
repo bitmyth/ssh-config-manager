@@ -53,6 +53,7 @@ function up(){
 function down(){
 	echo -n ${lines[$index]}
 	echo -en "\r" #carrige return
+	echo -en "\e[25" #
 	let index=index+1
 	echo -en "\e[1B" #down
 	oneline
@@ -87,6 +88,7 @@ function sshConnect(){
 
 saveCurrentTtySettings
 stty -echo
+stty cbreak
 page
 moveCursorToOrigin
 
