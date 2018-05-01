@@ -4,9 +4,6 @@ index=0
 known_hosts_arr=()
 function parseEnv(){
 	if [ -f known_hosts ]; then
-	#cat known_hosts |awk  '{print $1}' > h
-	#rm h -f
-
 	while read line;do
 		#$line=` echo $line |awk  '{print $1}'`
 		lines[${#lines[*]}]="$line"
@@ -15,12 +12,11 @@ function parseEnv(){
 	done < known_hosts
 
 	else
-		echo no file know_hosts found
+		echo file know_hosts not found
 		exit
 	fi
 }
 
-parseEnv
 
 function saveCurrentTtySettings(){
 	old_stty_settings=`stty -g`
@@ -53,7 +49,6 @@ function up(){
 function down(){
 	echo -n ${lines[$index]}
 	echo -en "\r" #carrige return
-	echo -en "\e[25" #
 	let index=index+1
 	echo -en "\e[1B" #down
 	oneline
@@ -79,12 +74,13 @@ function page(){
 
 function sshConnect(){
 	recoverCurrentTtySettings&&repaint
-	#eval ssh ${know_hosts[$index]}
 	echo connecting  ${known_hosts_arr[$index]} 
 	ssh ${known_hosts_arr[$index]} 
 }
 
 ####################################################################################################
+
+parseEnv
 
 saveCurrentTtySettings
 stty -echo
