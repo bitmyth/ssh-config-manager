@@ -7,7 +7,7 @@ known_hosts=/etc/known_hosts
 function init(){
 	if [ ! -f /usr/bin/zoo ];then
 		chmod +x zoo.sh && cp zoo.sh /usr/bin/zoo 
-		cp known_hosts  "$known_hosts"
+		cp known_hosts  $known_hosts
 	fi
 
 }
