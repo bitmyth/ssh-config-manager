@@ -2,14 +2,23 @@
 lines=()
 index=0
 known_hosts_arr=()
+known_hosts=/etc/known_hosts
+
+function init(){
+	if [ ! -f /usr/bin/zoo ];then
+		chmod +x zoo.sh && cp zoo.sh /usr/bin/zoo 
+		cp known_hosts  "$known_hosts"
+	fi
+
+}
 function parseEnv(){
-	if [ -f known_hosts ]; then
+	if [ -f $known_hosts ]; then
 	while read line;do
 		#$line=` echo $line |awk  '{print $1}'`
 		lines[${#lines[*]}]="$line"
 		known_hosts_arr[${#known_hosts_arr[*]}]=`echo $line|awk '{print $1}'`
 		#echo $line
-	done < known_hosts
+	done < $known_hosts
 
 	else
 		echo file know_hosts not found
@@ -79,6 +88,7 @@ function sshConnect(){
 }
 
 ####################################################################################################
+init
 
 parseEnv
 
